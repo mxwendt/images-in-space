@@ -17,7 +17,7 @@ var three = THREE.Bootstrap(options);
 // Create a new Object3D
 var twitter = new THREE.Object3D;
 
-var geometry = new THREE.SphereGeometry( 5, 32, 32 );
+var geometry = new THREE.SphereGeometry( 500, 32, 32 );
 var material = new THREE.MeshBasicMaterial( {color: 0x55acee} ); // Twitter blue
 var sphere = new THREE.Mesh( geometry, material );
 
@@ -34,8 +34,8 @@ var sphere = new THREE.Mesh( geometry, material );
 // Create a new Cesium Entity for Turning Torso
 var sphereGeoEntity = new Argon.Cesium.Entity({
   name: 'Turning Torso',
-  position: Argon.Cesium.Cartesian3.fromDegrees(13.053773, 55.587422)
-  // position: Argon.Cesium.Cartesian3.fromDegrees(12.976362, 55.613421)
+  // position: Argon.Cesium.Cartesian3.fromDegrees(13.053773, 55.587422)
+  position: Argon.Cesium.Cartesian3.fromDegrees(12.976362, 55.613421)
 });
 
 // Create a another Object3D linked to a Cesium Entity. This get's added to the scene for us.
