@@ -17,7 +17,7 @@ var three = THREE.Bootstrap(options);
 // Create a new Object3D
 var twitter = new THREE.Object3D;
 
-var geometry = new THREE.SphereGeometry( 500, 32, 32 );
+var geometry = new THREE.SphereGeometry( 50, 32, 32 );
 var material = new THREE.MeshBasicMaterial( {color: 0x55acee} ); // Twitter blue
 var sphere = new THREE.Mesh( geometry, material );
 
