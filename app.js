@@ -131,8 +131,8 @@ three.on('update', function(e) {
   // infoText += 'argon time: (' + three.argon.time.secondsOfDay + ')\n';
   // infoText += 'three time: (' + three.Time.now + ')\n';
   // infoText += 'camera (' + cameraPos[0] + ', ' + cameraPos[1] + ', ' + cameraPos[2] + '\n';
-  infoText += 'eye (' + gpsCartographicDeg[0].toFixed(2) + ', ' + gpsCartographicDeg[1].toFixed(2) + ', ' + gpsCartographicDeg[2].toFixed(2) + '\n';
-  infoText += 'sphere (' + sphereGeographicDeg[0].toFixed(2) + ', ' + sphereGeographicDeg[1].toFixed(2) + ', ' + sphereGeographicDeg[2].toFixed(2) + '\n';
+  infoText += 'eye (' + gpsCartographicDeg[0].toFixed(2) + ', ' + gpsCartographicDeg[1].toFixed(2) + ', ' + gpsCartographicDeg[2].toFixed(2) + ')\n';
+  infoText += 'sphere (' + sphereGeographicDeg[0].toFixed(2) + ', ' + sphereGeographicDeg[1].toFixed(2) + ', ' + sphereGeographicDeg[2].toFixed(2) + ')\n';
   infoText += 'distance to rotundan (' + distanceToSphere.toFixed(2) + ')';
 
   // Don't rerender the same information
