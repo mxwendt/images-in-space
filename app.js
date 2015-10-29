@@ -41,3 +41,103 @@ var sphereGeoEntity = new Argon.Cesium.Entity({
 // Create a another Object3D linked to a Cesium Entity. This get's added to the scene for us.
 var sphereGeoTarget = three.argon.objectFromEntity(sphereGeoEntity);
 sphereGeoTarget.add(sphere);
+
+/**
+ * Each time our context is assigned a new Reality, including the first time, we
+ * receive a "realityChange" event. We should do initialization that is based on
+ * the state of the world here.
+ *
+ * A state parameter looks like this:
+ * {
+ *   reality: Argon.Reality,
+ *   previousReality; Argon.Reality
+ * }
+ */
+
+// This will tell us if we have a reality
+var realityInit = false;
+
+// Listen for reality changes
+three.on('argon:realityChange', function(e) {
+  realityInit = true;
+});
+
+/**
+ * Argon's update state is stored in the threestrap update event in the
+ * argonState property. In general, this is only needed for lower-level
+ * information from Argon, such as the raw geolocation.
+ *
+ * An Argon state parameter looks like this:
+ * {
+ *   frameNumber: number (int),
+ *   time: a Cesium time for the update,
+ *   referenceFrame: Cesium.ReferenceFrame.FIXED or {id: frameID} // the root reference
+ *   position: {
+ *     cartesian: Cesium.Cartesian,
+ *     cartographicDegrees: [longitude, latitude, height]
+ *   },
+ *   orientation: {
+ *     unitQuaternion: Cesium.Quaternion, // Orientation in reference frame
+ *     unitQuaternionRelative: Cesium.Quaternion, // Orientation relative to local origin
+ *   },
+ *   frustum: {
+ *     fov: number,
+ *     fovy: number,
+ *     aspectRatio: number
+ *   },
+ *   reality: {
+ *     id: realityID
+ *   }
+ * }
+ */
+
+// This will save the last info text that was rendered
+var lastInfoText = '';
+
+three.on('update', function(e) {
+  var locationElem = document.getElementById('location');
+  var state = e.argonState;
+  var gpsCartographicDeg = [0, 0, 0];
+  var sphereGeographicDeg = [0, 0, 0];
+  var cameraPos;
+  var spherePos;
+  var distanceToSphere;
+  var infoText;
+
+  // Ignore update until we have a reality
+  if (! realityInit) {
+    locationElem.innerText = 'No reality yet';
+    return;
+  }
+
+  // Get the Argon's cartographic degrees [longitude, latitude, height]
+  if (state.position.cartographicDegrees) {
+    gpsCartographicDeg = state.position.cartographicDegrees;
+  }
+
+  // Get Rotundans cartographic degrees as well
+  if (three.argon.getCartographicDegreesFromEntity(sphereGeoEntity)) {
+    sphereGeographicDeg = three.argon.getCartographicDegreesFromEntity(sphereGeoEntity)
+  }
+
+  // Calculate some information
+  cameraPos = three.camera.getWorldPosition();
+  spherePos = sphere.getWorldPosition();
+  distanceToSphere = cameraPos.distanceTo(spherePos);
+
+  // Ouput some information
+  infoText = 'Operation Rotundan:\n';
+  // infoText += 'frame: ' + state.frameNumber + '\n';
+  // infoText += 'argon time: (' + three.argon.time.secondsOfDay + ')\n';
+  // infoText += 'three time: (' + three.Time.now + ')\n';
+  infoText += 'camera (' + cameraPos[0] + ', ' + cameraPos[1] + ', ' + cameraPos[2] + '\n';
+  infoText += 'eye (' + gpsCartographicDeg[0] + ', ' + gpsCartographicDeg[1] + ', ' + gpsCartographicDeg[2] + '\n';
+  infoText += 'sphere (' + sphereGeographicDeg[0] + ', ' + sphereGeographicDeg[1] + ', ' + sphereGeographicDeg[2] + '\n';
+  infoText += 'distance to rotundan (' + distanceToSphere + ')';
+
+  // Don't rerender the same information
+  if (lastInfoText !== infoText) {
+    locationElem.innerText = infoText;
+    lastInfoText = infoText;
+  }
+});
