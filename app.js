@@ -35,7 +35,7 @@ var sphere = new THREE.Mesh( geometry, material );
 var sphereGeoEntity = new Argon.Cesium.Entity({
   name: 'Turning Torso',
   // position: Argon.Cesium.Cartesian3.fromDegrees(13.053773, 55.587422)
-  position: Argon.Cesium.Cartesian3.fromDegrees(11.000362, 55.613421) // MAH 55.608716, 12.992131
+  position: Argon.Cesium.Cartesian3.fromDegrees(12.000362, 55.613421) // MAH 55.608716, 12.992131
 });
 
 // Create a another Object3D linked to a Cesium Entity. This get's added to the scene for us.
