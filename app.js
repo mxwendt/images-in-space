@@ -126,11 +126,11 @@ three.on('update', function(e) {
   distanceToSphere = cameraPos.distanceTo(spherePos);
 
   // Ouput some information
-  infoText = 'Operation Rotundan:\n';
+  infoText = 'Images in space:\n';
   // infoText += 'frame: ' + state.frameNumber + '\n';
   // infoText += 'argon time: (' + three.argon.time.secondsOfDay + ')\n';
   // infoText += 'three time: (' + three.Time.now + ')\n';
-  infoText += 'camera (' + cameraPos[0] + ', ' + cameraPos[1] + ', ' + cameraPos[2] + '\n';
+  // infoText += 'camera (' + cameraPos[0] + ', ' + cameraPos[1] + ', ' + cameraPos[2] + '\n';
   infoText += 'eye (' + gpsCartographicDeg[0] + ', ' + gpsCartographicDeg[1] + ', ' + gpsCartographicDeg[2] + '\n';
   infoText += 'sphere (' + sphereGeographicDeg[0] + ', ' + sphereGeographicDeg[1] + ', ' + sphereGeographicDeg[2] + '\n';
   infoText += 'distance to rotundan (' + distanceToSphere + ')';
